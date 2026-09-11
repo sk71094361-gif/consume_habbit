@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>한 달 소비습관 분석기</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #f6f8fc;
+      color: #1f2933;
+      font-family: -apple-system, "Segoe UI", system-ui, Roboto, "Helvetica Neue", sans-serif;
+      line-height: 1.5;
+    }
+    body { padding: 18px; }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .brand .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #2b8c4e;
+      color: #ffffff;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+    .tag {
+      font-size: 13px;
+      color: #5b6776;
+      font-weight: 500;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #d8dee6;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: #1f2933;
+      border-bottom: 1px solid #e6ebf2;
+      padding-bottom: 10px;
+    }
+    .card h2 .sub {
+      font-size: 12px;
+      color: #5b6776;
+      font-weight: 500;
+      margin-left: 8px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .row .grow { flex: 1; min-width: 140px; }
+
+    label { font-size: 13px; color: #3a4654; font-weight: 500; }
+
+    input, select {
+      background: #f6f8fc;
+      color: #1f2933;
+      border: 1px solid #d0d8e2;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 14px;
+      font-family: inherit;
+      width: 100%;
+    }
+    input:focus, select:focus {
+      outline: 2px solid #2b8c4e;
+      border-color: #2b8c4e;
+      background: #ffffff;
+    }
+
+    .btn {
+      background: #2b8c4e;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn:hover { background: #237040; }
+    .btn:active { transform: translateY(1px); }
+    .btn.secondary {
+      background: #eef2f7;
+      color: #1f2933;
+      border: 1px solid #d0d8e2;
+    }
+    .btn.secondary:hover { background: #e4e9f0; }
+    .btn.danger {
+      background: #c8334a;
+      color: #ffffff;
+    }
+    .btn.danger:hover { background: #a8283a; }
+    .btn.small {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .stat {
+      background: #f6f8fc;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .stat .label {
+      font-size: 12px;
+      color: #5b6776;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .stat .val {
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .stat .val.neg { color: #c8334a; }
+    .stat .val.pos { color: #2b8c4e; }
+    .stat .desc {
+      font-size: 11px;
+      color: #5b6776;
+      margin-top: 2px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 8px;
+      border-bottom: 1px solid #e6ebf2;
+    }
+    th {
+      color: #5b6776;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.4px;
+      background: #f6f8fc;
+    }
+    tbody tr:hover { background: #f6f8fc; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; }
+    td span.tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .tag.food { background: #fde9d9; color: #9a5a16; }
+    .tag.subs { background: #e6edf7; color: #2b4a6b; }
+    .tag.transport { background: #e7f1e6; color: #2f6b3a; }
+    .tag.living { background: #f1e9f5; color: #5a3a75; }
+    .tag.leisure { background: #fdf2e6; color: #9a5a16; }
+    .tag.etc { background: #eef2f7; color: #5b6776; }
+
+    .chip {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: #eef2f7;
+      color: #3a4654;
+    }
+
+    .progress-box {
+      background: #f6f8fc;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 8px;
+    }
+    .progress-box .p-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #5b6776;
+      margin-bottom: 6px;
+    }
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: #e3e8f0;
+      overflow: hidden;
+    }
+    .progress > div {
+      height: 100%;
+      background: #2b8c4e;
+      border-radius: 999px;
+    }
+    .progress.warn > div { background: #d29922; }
+    .progress.over > div { background: #c8334a; }
+
+    .tips {
+      background: #f6f8fc;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .tips h3 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      color: #1f2933;
+    }
+    .tips ul {
+      margin: 0 0 0 18px;
+      padding: 0;
+      font-size: 13px;
+      color: #3a4654;
+    }
+    .tips li { margin-bottom: 6px; }
+
+    .type-result {
+      background: #f6f8fc;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 6px;
+    }
+    .type-result .type-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .type-result .type-desc {
+      font-size: 13px;
+      color: #3a4654;
+      margin-bottom: 10px;
+    }
+    .type-result .type-list {
+      font-size: 13px;
+      color: #3a4654;
+      margin: 0 0 0 18px;
+    }
+    .type-result .type-list li { margin-bottom: 4px; }
+
+    .chart-wrap {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .chart-box {
+      background: #ffffff;
+      border: 1px solid #e3e8f0;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+    }
+    .chart-box canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .chart-legend {
+      font-size: 12px;
+      color: #3a4654;
+      margin-top: 6px;
+    }
+    .chart-legend div { margin-bottom: 3px; }
+
+    .guide {
+      background: #eef6f0;
+      border: 1px solid #cfe3d6;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #1f3a2a;
+    }
+    .guide strong { color: #1f2933; }
+    .guide ol { margin: 6px 0 0 18px; padding: 0; }
+    .guide ol li { margin-bottom: 4px; }
+
+    footer {
+      margin-top: 18px;
+      color: #5b6776;
+      font-size: 12px;
+      text-align: center;
+      border-top: 1px solid #e3e8f0;
+      padding-top: 12px;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">돈</div>
+        <div>
+          <div style="font-weight:700">한 달 소비습관 분석기</div>
+          <div class="tag">대학생·사회초년생용 지출 분석</div>
+        </div>
+      </div>
+      <div class="row">
+        <span class="chip">내 지출 정리</span>
+        <span class="chip">습관 확인</span>
+        <span class="chip">절약 목표</span>
+      </div>
+    </header>
+
+    <div class="guide">
+      <strong>이렇게 써보세요.</strong>
+      <ol>
+        <li>월 수입을 먼저 입력하세요.</li>
+        <li>지출 항목을 하나씩 추가하세요. 식비, 교통비, 구독료처럼 자주 쓰는 항목은 카테고리로 묶을 수 있습니다.</li>
+        <li>아래 <strong>소비습관 분석하기</strong> 버튼을 누르면 항목별 비율과 소비 유형, 절약 팁이 나옵니다.</li>
+        <li>마지막으로 절약 목표를 설정하면 다음 달 계획이 더 쉬워집니다.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>수입·지출 입력 <span class="sub">한 달 기준</span></h2>
+      <div class="row" style="margin-bottom:12px;">
+        <div class="grow">
+          <label for="income">월 수입 (원)</label>
+          <input type="number" id="income" min="0" step="1000" placeholder="예: 1200000" />
+        </div>
+      </div>
+
+      <div class="row" style="margin-bottom:10px;">
+        <div class="grow" style="flex:3;">
+          <label for="itemName">지출 항목 이름</label>
+          <input type="text" id="itemName" placeholder="예: 식비, 카페, 지하철, 넷플릭스" />
+        </div>
+        <div style="width:140px;">
+          <label for="itemAmount">금액 (원)</label>
+          <input type="number" id="itemAmount" min="0" step="100" placeholder="원" />
+        </div>
+        <div style="width:140px;">
+          <label for="itemCategory">카테고리</label>
+          <select id="itemCategory">
+            <option value="etc">기타</option>
+            <option value="food">식비/간식</option>
+            <option value="subs">구독/자동결제</option>
+            <option value="transport">교통/이동</option>
+            <option value="living">생활/주거</option>
+            <option value="leisure">여가/취미</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-bottom:10px;">
+        <button class="btn" id="btnAddItem">지출 항목 추가</button>
+        <button class="btn secondary small" id="btnAddSample">예시 데이터 넣기</button>
+      </div>
+
+      <table id="expenseTable">
+        <thead>
+          <tr>
+            <th>항목</th><th>카테고리</th><th class="num">금액</th><th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>총 지출액과 잔액</h2>
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="label">월 수입</div>
+          <div class="val" id="statIncome">0원</div>
+          <div class="desc">입력한 총수입</div>
+        </div>
+        <div class="stat">
+          <div class="label">총 지출</div>
+          <div class="val" id="statExpense">0원</div>
+          <div class="desc">입력한 지출 합계</div>
+        </div>
+        <div class="stat">
+          <div class="label">잔액</div>
+          <div class="val" id="statBalance">0원</div>
+          <div class="desc">수입 - 지출</div>
+        </div>
+        <div class="stat">
+          <div class="label">지출 비중</div>
+          <div class="val" id="statRatio">0%</div>
+          <div class="desc">수입 대비 지출 비율</div>
+        </div>
+      </div>
+      <div class="progress-box">
+        <div class="p-head">
+          <span>지출 비중</span>
+          <span id="ratioLabel">0%</span>
+        </div>
+        <div class="progress" id="ratioProgress">
+          <div id="ratioBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>항목별 소비 <span class="sub">내역과 그래프</span></h2>
+      <div class="chart-wrap">
+        <div class="chart-box" style="flex:1;">
+          <canvas id="donutChart" width="220" height="220"></canvas>
+          <div class="chart-legend" id="donutLegend"></div>
+        </div>
+        <div class="chart-box" style="flex:1.4;">
+          <canvas id="barChart" width="280" height="220"></canvas>
+          <div class="chart-legend" style="text-align:left;">
+            <div style="font-weight:600; margin-bottom:4px;">항목별 금액</div>
+            <div id="barLegend"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button class="btn secondary small" id="btnSortByAmount">금액 높은 순</button>
+        <button class="btn secondary small" id="btnSortByCategory">카테고리별 보기</button>
+        <button class="btn secondary small" id="btnClearExpense">지출 초기화</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>소비 유형 분석 <span class="sub">버튼을 눌러 확인하세요</span></h2>
+      <div class="row" style="margin-bottom:10px;">
+        <button class="btn" id="btnAnalyze">소비습관 분석하기</button>
+        <button class="btn secondary small" id="btnResetType">분석 결과 지우기</button>
+      </div>
+      <div id="analysisPanel" class="hidden">
+        <div class="type-result">
+          <div class="type-title" id="typeTitle">당신의 소비 유형</div>
+          <div class="type-desc" id="typeDesc"></div>
+          <div class="type-list" id="typeList"></div>
+        </div>
+        <div class="tips">
+          <h3>절약 팁</h3>
+          <ul id="tipsList"></ul>
+        </div>
+      </div>
+      <div id="analysisPlaceholder" class="muted" style="font-size:13px;">
+        분석을 누르면 항목별 소비 패턴과 유형을 알려줍니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>절약 목표 설정 <span class="sub">다음 달을 위한 계획</span></h2>
+      <div class="row" style="margin-bottom:12px;">
+        <div class="grow">
+          <label for="goalRatio">목표 지출 비중 (%)</label>
+          <input type="number" id="goalRatio" min="0" max="100" step="1" placeholder="예: 70" />
+        </div>
+        <div style="width:160px;">
+          <label for="goalSaving">한 달 절약 목표 (원)</label>
+          <input type="number" id="goalSaving" min="0" step="1000" placeholder="원" />
+        </div>
+      </div>
+      <div class="row" style="margin-bottom:10px;">
+        <button class="btn" id="btnSetGoal">목표 설정하기</button>
+        <button class="btn secondary small" id="btnClearGoal">목표 지우기</button>
+      </div>
+      <div id="goalPanel" class="hidden">
+        <div class="progress-box">
+          <div class="p-head">
+            <span>현재 지출 비중</span>
+            <span id="goalLabel">0% / 목표 0%</span>
+          </div>
+          <div class="progress" id="goalProgress">
+            <div id="goalBar" style="width:0%"></div>
+          </div>
+        </div>
+        <div style="margin-top:10px; font-size:13px; color:#3a4654;" id="goalMessage"></div>
+      </div>
+      <div id="goalPlaceholder" class="muted" style="font-size:13px;">
+        목표를 설정하면 지금 지출이 목표보다 많은지 적은지 볼 수 있습니다.
+      </div>
+    </div>
+
+    <footer>한 달 소비습관 분석기 · 내 지출을 보고 더 나은 소비습관을 만들어보세요.</footer>
+  </div>
+
+  <script>
+    // ---------- 상태 ----------
+    let state = {
+      income: 0,
+      expenses: [],
+      sortMode: 'amount',
+      analyzed: false,
+      goalRatio: null,
+      goalSaving: null
+    };
+
+    const CATEGORY_LABEL = {
+      food: '식비/간식',
+      subs: '구독/자동결제',
+      transport: '교통/이동',
+      living: '생활/주거',
+      leisure: '여가/취미',
+      etc: '기타'
+    };
+
+    const CATEGORY_TAGS = {
+      food: 'tag food',
+      subs: 'tag subs',
+      transport: 'tag transport',
+      living: 'tag living',
+      leisure: 'tag leisure',
+      etc: 'tag etc'
+    };
+
+    // ---------- helpers ----------
+    function fmtMoney(v) {
+      if (v === 0) return '0원';
+      if (Math.abs(v) >= 10000) {
+        return (v / 10000).toFixed(v % 10000 === 0 ? 0 : 1) + '만 원';
+      }
+      return String(v) + '원';
+    }
+
+    function fmtMoneyShort(v) {
+      if (v === 0) return '0원';
+      return String(v) + '원';
+    }
+
+    function totalExpense() {
+      return state.expenses.reduce((a, e) => a + e.amount, 0);
+    }
+
+    function byCategory() {
+      const map = {};
+      state.expenses.forEach(e => {
+        map[e.category] = (map[e.category] || 0) + e.amount;
+      });
+      return map;
+    }
+
+    function sortExpenses(arr) {
+      if (state.sortMode === 'amount') {
+        return arr.slice().sort((a, b) => b.amount - a.amount);
+      }
+      if (state.sortMode === 'category') {
+        return arr.slice().sort((a, b) => {
+          if (a.category !== b.category) return a.category.localeCompare(b.category);
+          return b.amount - a.amount;
+        });
+      }
+      return arr.slice();
+    }
+
+    // ---------- 입력 ----------
+    const incomeInput = document.getElementById('income');
+    incomeInput.addEventListener('input', () => {
+      const v = parseInt(incomeInput.value, 10);
+      state.income = isNaN(v) ? 0 : Math.max(0, v);
+      renderSummary();
+    });
+
+    document.getElementById('btnAddItem').addEventListener('click', () => {
+      const name = document.getElementById('itemName').value.trim();
+      const amountRaw = document.getElementById('itemAmount').value.trim();
+      const category = document.getElementById('itemCategory').value;
+
+      if (!name) {
+        alert('지출 항목 이름을 입력해주세요.');
+        return;
+      }
+      const amount = parseInt(amountRaw, 10);
+      if (isNaN(amount) || amount <= 0) {
+        alert('금액을 0보다 큰 숫자로 입력해주세요.');
+        return;
+      }
+
+      state.expenses.push({ name, amount, category });
+      document.getElementById('itemName').value = '';
+      document.getElementById('itemAmount').value = '';
+      renderExpenseTable();
+      renderSummary();
+      renderCharts();
+    });
+
+    document.getElementById('btnAddSample').addEventListener('click', () => {
+      state.income = 1200000;
+      incomeInput.value = 1200000;
+      state.expenses = [
+        { name: '식비(편의점/배달)', amount: 380000, category: 'food' },
+        { name: '카페/간식', amount: 90000, category: 'food' },
+        { name: '지하철/버스', amount: 75000, category: 'transport' },
+        { name: '넷플릭스', amount: 17000, category: 'subs' },
+        { name: '음향 스트리밍', amount: 8900, category: 'subs' },
+        { name: '월세/관리비', amount: 450000, category: 'living' },
+        { name: '편의점 생수/생필품', amount: 45000, category: 'living' },
+        { name: '영화/공연', amount: 30000, category: 'leisure' },
+        { name: '친구 만남', amount: 60000, category: 'leisure' },
+        { name: '기타 쇼핑', amount: 40000, category: 'etc' }
+      ];
+      state.analyzed = false;
+      document.getElementById('analysisPanel').classList.add('hidden');
+      document.getElementById('analysisPlaceholder').classList.remove('hidden');
+      renderExpenseTable();
+      renderSummary();
+      renderCharts();
+    });
+
+    document.getElementById('btnClearExpense').addEventListener('click', () => {
+      if (!confirm('입력한 지출 내역을 모두 지우시겠습니까?')) return;
+      state.expenses = [];
+      renderExpenseTable();
+      renderSummary();
+      renderCharts();
+      document.getElementById('analysisPanel').classList.add('hidden');
+      document.getElementById('analysisPlaceholder').classList.remove('hidden');
+    });
+
+    document.getElementById('btnSortByAmount').addEventListener('click', () => {
+      state.sortMode = 'amount';
+      renderExpenseTable();
+    });
+
+    document.getElementById('btnSortByCategory').addEventListener('click', () => {
+      state.sortMode = 'category';
+      renderExpenseTable();
+    });
+
+    // ---------- 지출 테이블 ----------
+    function renderExpenseTable() {
+      const tbody = document.querySelector('#expenseTable tbody');
+      tbody.innerHTML = '';
+      const list = sortExpenses(state.expenses);
+      if (!list.length) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="4" style="text-align:center; color:#5b6776; padding:14px;">지출 항목이 없습니다.</td>';
+        tbody.appendChild(tr);
+        return;
+      }
+      list.forEach((e, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML =
+          '<td><b>' + e.name + '</b></td>' +
+          '<td><span class="' + CATEGORY_TAGS[e.category] + '">' + CATEGORY_LABEL[e.category] + '</span></td>' +
+          '<td class="num">' + fmtMoneyShort(e.amount) + '</td>' +
+          '<td><button class="btn danger small" data-idx="' + idx + '">삭제</button></td>';
+        tbody.appendChild(tr);
+      });
+
+      tbody.querySelectorAll('button[data-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.idx, 10);
+          state.expenses.splice(idx, 1);
+          renderExpenseTable();
+          renderSummary();
+          renderCharts();
+        });
+      });
+    }
+
+    // ---------- 요약 ----------
+    function renderSummary() {
+      const income = state.income;
+      const expense = totalExpense();
+      const balance = income - expense;
+      const ratio = income > 0 ? (expense / income) * 100 : 0;
+
+      document.getElementById('statIncome').textContent = fmtMoney(income);
+      document.getElementById('statExpense').textContent = fmtMoney(expense);
+      const balanceEl = document.getElementById('statBalance');
+      balanceEl.textContent = fmtMoney(balance);
+      balanceEl.className = 'val' + (balance < 0 ? ' neg' : (balance > 0 ? ' pos' : ''));
+      document.getElementById('statRatio').textContent = ratio.toFixed(1) + '%';
+
+      const ratioBar = document.getElementById('ratioBar');
+      const ratioProgress = document.getElementById('ratioProgress');
+      const pct = Math.min(100, ratio);
+      ratioBar.style.width = pct + '%';
+      ratioProgress.classList.remove('warn', 'over');
+      if (pct > 90) ratioProgress.classList.add('over');
+      else if (pct > 75) ratioProgress.classList.add('warn');
+
+      document.getElementById('ratioLabel').textContent = ratio.toFixed(1) + '%';
+    }
+
+    // ---------- 차트 ----------
+    function renderCharts() {
+      renderDonut();
+      renderBar();
+    }
+
+    function renderDonut() {
+      const canvas = document.getElementById('donutChart');
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const w = 220, h = 220;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0, 0, w, h);
+
+      const cat = byCategory();
+      const keys = Object.keys(cat).filter(k => cat[k] > 0);
+      const total = keys.reduce((a, k) => a + cat[k], 0);
+      const legend = document.getElementById('donutLegend');
+      legend.innerHTML = '';
+
+      if (!keys.length || total === 0) {
+        ctx.beginPath();
+        ctx.arc(w / 2, h / 2, 70, 0, Math.PI * 2);
+        ctx.fillStyle = '#e3e8f0';
+        ctx.fill();
+        ctx.fillStyle = '#5b6776';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('지출 없음', w / 2, h / 2);
+        return;
+      }
+
+      const colors = ['#2b8c4e', '#d29922', '#3b6ea5', '#8a3aa3', '#c8334a', '#5b6776'];
+      let startAngle = -Math.PI / 2;
+
+      keys.forEach((k, i) => {
+        const val = cat[k];
+        const slice = (val / total) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.arc(w / 2, h / 2, 70, startAngle, startAngle + slice);
+        ctx.lineTo(w / 2, h / 2);
+        ctx.closePath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.fill();
+
+        const mid = startAngle + slice / 2;
+        const lx = w / 2 + Math.cos(mid) * 52;
+        const ly = h / 2 + Math.sin(mid) * 52;
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText((val / total * 100).toFixed(1) + '%', lx, ly);
+
+        startAngle += slice;
+      });
+
+      keys.forEach((k, i) => {
+        const div = document.createElement('div');
+        div.textContent = CATEGORY_LABEL[k] + ' ' + (cat[k] / total * 100).toFixed(1) + '%';
+        legend.appendChild(div);
+      });
+    }
+
+    function renderBar() {
+      const canvas = document.getElementById('barChart');
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const w = 280, h = 220;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0, 0, w, h);
+
+      const list = sortExpenses(state.expenses);
+      const legend = document.getElementById('barLegend');
+      legend.innerHTML = '';
+
+      if (!list.length) {
+        ctx.fillStyle = '#5b6776';
+        ctx.font = '12px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('지출 항목 없음', w / 2, h / 2);
+        return;
+      }
+
+      const top = list.slice(0, 6);
+      const maxVal = Math.max(...top.map(e => e.amount), 1);
+      const barW = Math.min(34, (w - 50) / top.length - 6);
+      const baseY = h - 30;
+      const chartH = h - 50;
+
+      top.forEach((e, i) => {
+        const x = 20 + i * (barW + 8);
+        const bh = (e.amount / maxVal) * chartH;
+        ctx.fillStyle = '#2b8c4e';
+        ctx.fillRect(x, baseY - bh, barW, bh);
+
+        ctx.fillStyle = '#1f2933';
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText((e.amount / 10000).toFixed(e.amount % 10000 === 0 ? 0 : 1) + '만', x + barW / 2, baseY - bh - 3);
+
+        ctx.fillStyle = '#5b6776';
+        ctx.font = '9px sans-serif';
+        ctx.textBaseline = 'top';
+        const label = e.name.length > 10 ? e.name.slice(0, 10) + '…' : e.name;
+        ctx.fillText(label, x + barW / 2, baseY + 4);
+
+        const div = document.createElement('div');
+        div.textContent = e.name + ' ' + fmtMoneyShort(e.amount);
+        legend.appendChild(div);
+      });
+
+      if (list.length > 6) {
+        const div = document.createElement('div');
+        div.textContent = '외 ' + (list.length - 6) + '개 항목';
+        legend.appendChild(div);
+      }
+    }
+
+    // ---------- 분석 ----------
+    document.getElementById('btnAnalyze').addEventListener('click', () => {
+      if (!state.expenses.length) {
+        alert('분석할 지출 항목이 필요합니다. 먼저 지출을 입력해보세요.');
+        return;
+      }
+      if (!state.income) {
+        alert('월 수입을 입력하면 더 정확한 분석이 가능합니다.');
+      }
+
+      const cat = byCategory();
+      const total = Object.values(cat).reduce((a, b) => a + b, 0);
+      const entries = Object.keys(cat).map(k => ({ key: k, val: cat[k], pct: total > 0 ? (cat[k] / total) * 100 : 0 }));
+      entries.sort((a, b) => b.pct - a.pct);
+
+      const top = entries[0];
+      const second = entries[1];
+
+      const typeTitle = document.getElementById('typeTitle');
+      const typeDesc = document.getElementById('typeDesc');
+      const typeList = document.getElementById('typeList');
+      const tipsList = document.getElementById('tipsList');
+
+      let type = '';
+      let desc = '';
+
+      if (top.pct >= 40) {
+        if (top.key === 'food') {
+          type = '식비 중심형';
+          desc = '식비와 간식 지출이 가장 큰 비중을 차지합니다. 배달·편의점·외식 빈도를 점검해보세요.';
+        } else if (top.key === 'subs') {
+          type = '구독·자동결제형';
+          desc = '구독과 자동결제 지출이 눈에 띕니다. 자주 안 쓰는 구독부터 정리해보세요.';
+        } else if (top.key === 'living') {
+          type = '생활·주거 집중형';
+          desc = '생활비와 주거 관련 지출이 큽니다. 고정비를 줄이는 방향이 중요합니다.';
+        } else if (top.key === 'leisure') {
+          type = '여가·취미형';
+          desc = '영화·공연·친구 만남 같은 여가 지출이 많습니다. 즐거움은 유지하되 빈도를 조절해보세요.';
+        } else {
+          type = '기타 지출 집중형';
+          desc = '기타 항목의 지출이 가장 큽니다. 어떤 항목이 반복되는지 확인해보세요.';
+        }
+      } else if (top.pct >= 25 && second && second.pct >= 15) {
+        type = '복합 소비형';
+        desc = '두세 항목이 비슷하게 높습니다. 큰 항목 하나만 줄이기보다 작은 지출을 여러 개 점검해보세요.';
+      } else {
+        type = '분산 소비형';
+        desc = '한 항목에 몰려 있기보다 여러 항목에 나뉘어 있습니다. 소액 지출이 쌓이는지 확인해보세요.';
+      }
+
+      if (top.key) {
+        typeDesc.textContent = desc + ' 가장 큰 항목은 ' + CATEGORY_LABEL[top.key] + ' (' + top.pct.toFixed(1) + '%)입니다.';
+      } else {
+        typeDesc.textContent = desc;
+      }
+
+      typeList.innerHTML = '';
+      entries.forEach(e => {
+        if (e.pct < 3 && e.key !== top.key) return;
+        const li = document.createElement('li');
+        li.textContent = CATEGORY_LABEL[e.key] + ' ' + e.pct.toFixed(1) + '% · ' + fmtMoney(e.val);
+        typeList.appendChild(li);
+      });
+
+      tipsList.innerHTML = '';
+      const tips = generateTips(entries, total, state.income);
+      tips.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t;
+        tipsList.appendChild(li);
+      });
+
+      document.getElementById('analysisPanel').classList.remove('hidden');
+      document.getElementById('analysisPlaceholder').classList.add('hidden');
+      state.analyzed = true;
+    });
+
+    function generateTips(entries, total, income) {
+      const tips = [];
+      const topFood = entries.find(e => e.key === 'food');
+      const topSubs = entries.find(e => e.key === 'subs');
+      const topTransport = entries.find(e => e.key === 'transport');
+
+      if (topFood && topFood.pct >= 25) {
+        tips.push('식비가 높다면 주 1~2회 배달/외식 횟수를 줄여보세요. 집밥이나 간편식으로 대체하면 체감이 큽니다.');
+        tips.push('편의점 소액 결제가 쌓이는지 확인해보세요. 한 번에 여러 개를 사면 생각보다 금액이 커집니다.');
+      }
+      if (topSubs && topSubs.pct >= 10) {
+        tips.push('구독 서비스 중 최근 1달간 거의 안 쓴 항목이 있다면 해지해보세요.');
+        tips.push('자동결제 항목은 월초에 한 번씩 점검하는 습관을 들이면 새는 돈을 줄일 수 있습니다.');
+      }
+      if (topTransport && topTransport.pct >= 15) {
+        tips.push('교통비가 높다면 이동 경로를 한 번 정리해보세요. 환승이나 도보 가능 구간이 있을 수 있습니다.');
+      }
+      if (total > 0 && income > 0) {
+        const ratio = (total / income) * 100;
+        if (ratio > 80) {
+          tips.push('현재 지출 비중이 높습니다. 다음 달에는 지금보다 ' + (ratio - 70).toFixed(0) + '%p 정도 낮추는 목표를 세워보세요.');
+        } else if (ratio > 55) {
+          tips.push('지출 비중이 준수하지만, 작은 반복 지출이 있는지 한 번만 점검해도 더 줄일 수 있습니다.');
+        } else {
+          tips.push('지출 관리 습관이 나쁘지 않습니다. 지금의 흐름을 유지하면서 불필요한 소액 결제만 조심해보세요.');
+        }
+      }
+      if (state.expenses.length > 0) {
+        const avg = total / state.expenses.length;
+        if (avg > 100000) {
+          tips.push('항목당 평균 지출이 큰 편입니다. 금액이 큰 고정 지출부터 먼저 조정해보세요.');
+        } else {
+          tips.push('소액 항목이 많은 편이라면, 자주 쓰는 항목을 하나로 묶어 관리해보세요.');
+        }
+      }
+      if (tips.length === 0) {
+        tips.push('아직 뚜렷한 낭비 항목은 보이지 않습니다. 지금의 소비 흐름을 한 달 더 기록해보세요.');
+      }
+      return tips;
+    }
+
+    document.getElementById('btnResetType').addEventListener('click', () => {
+      document.getElementById('analysisPanel').classList.add('hidden');
+      document.getElementById('analysisPlaceholder').classList.remove('hidden');
+      state.analyzed = false;
+    });
+
+    // ---------- 목표 ----------
+    document.getElementById('btnSetGoal').addEventListener('click', () => {
+      const ratioRaw = document.getElementById('goalRatio').value.trim();
+      const savingRaw = document.getElementById('goalSaving').value.trim();
+
+      const ratio = parseInt(ratioRaw, 10);
+      const saving = parseInt(savingRaw, 10);
+
+      if (isNaN(ratio) || ratio < 0 || ratio > 100) {
+        alert('목표 지출 비중은 0~100 사이로 입력해주세요.');
+        return;
+      }
+      if (isNaN(saving) || saving < 0) {
+        alert('절약 목표는 0 이상의 숫자로 입력해주세요.');
+        return;
+      }
+
+      state.goalRatio = ratio;
+      state.goalSaving = saving;
+
+      document.getElementById('goalPanel').classList.remove('hidden');
+      document.getElementById('goalPlaceholder').classList.add('hidden');
+
+      const expense = totalExpense();
+      const income = state.income || 1;
+      const currentRatio = (expense / income) * 100;
+      const gap = currentRatio - ratio;
+
+      const goalBar = document.getElementById('goalBar');
+      const goalProgress = document.getElementById('goalProgress');
+      const pct = Math.min(100, currentRatio);
+      goalBar.style.width = pct + '%';
+      goalProgress.classList.remove('warn', 'over');
+      if (gap > 0) goalProgress.classList.add('over');
+      else if (gap > -10) goalProgress.classList.add('warn');
+
+      document.getElementById('goalLabel').textContent =
+        currentRatio.toFixed(1) + '% / 목표 ' + ratio + '%';
+
+      const msg = document.getElementById('goalMessage');
+      if (gap > 0) {
+        msg.innerHTML = '현재 지출 비중이 목표보다 <b>' + gap.toFixed(1) + '%p</b> 높습니다. 이번 달 지출을 약 ' + fmtMoney(Math.round(saving)) + ' 정도 줄여보세요.';
+        msg.style.color = '#c8334a';
+      } else if (gap > -5) {
+        msg.innerHTML = '현재 지출 비중이 목표와 비슷합니다. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 유지해보세요.';
+        msg.style.color = '#2b8c4e';
+      } else {
+        msg.innerHTML = '현재 지출 비중이 목표보다 낮습니다. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 잘 지키고 있습니다.';
+        msg.style.color = '#2b8c4e';
+      }
+    });
+
+    document.getElementById('btnClearGoal').addEventListener('click', () => {
+      state.goalRatio = null;
+      state.goalSaving = null;
+      document.getElementById('goalPanel').classList.add('hidden');
+      document.getElementById('goalPlaceholder').classList.remove('hidden');
+      document.getElementById('goalRatio').value = '';
+      document.getElementById('goalSaving').value = '';
+    });
+
+    // ---------- 초기 렌더링 ----------
+    renderExpenseTable();
+    renderSummary();
+    renderCharts();
+  </script>
+</body>
+</html>
