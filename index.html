@@ -9,12 +9,12 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #f6f8fc;
-      color: #1f2933;
+      background: #fce8f3;
+      color: #3a2a3a;
       font-family: -apple-system, "Segoe UI", system-ui, Roboto, "Helvetica Neue", sans-serif;
-      line-height: 1.5;
+      line-height: 1.55;
     }
-    body { padding: 18px; }
+    body { padding: 20px; }
 
     .container {
       max-width: 980px;
@@ -27,7 +27,7 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .brand {
       display: flex;
@@ -35,41 +35,43 @@
       gap: 10px;
       font-size: 18px;
       font-weight: 700;
+      color: #5a2a4a;
     }
     .brand .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: #2b8c4e;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: #f28cb1;
       color: #ffffff;
       font-weight: 800;
       display: grid;
       place-items: center;
+      box-shadow: 0 4px 10px rgba(242, 140, 177, 0.35);
     }
     .tag {
       font-size: 13px;
-      color: #5b6776;
+      color: #7d5276;
       font-weight: 500;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #d8dee6;
-      border-radius: 10px;
-      padding: 16px;
+      border: 1px solid #f3d3df;
+      border-radius: 16px;
+      padding: 18px;
       margin-bottom: 16px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      box-shadow: 0 6px 18px rgba(242, 140, 177, 0.10);
     }
     .card h2 {
-      margin: 0 0 10px;
-      font-size: 15px;
-      color: #1f2933;
-      border-bottom: 1px solid #e6ebf2;
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #5a2a4a;
+      border-bottom: 1px solid #f3d3df;
       padding-bottom: 10px;
     }
     .card h2 .sub {
       font-size: 12px;
-      color: #5b6776;
+      color: #9a6a96;
       font-weight: 500;
       margin-left: 8px;
     }
@@ -82,51 +84,61 @@
     }
     .row .grow { flex: 1; min-width: 140px; }
 
-    label { font-size: 13px; color: #3a4654; font-weight: 500; }
+    label {
+      font-size: 13px;
+      color: #7d5276;
+      font-weight: 600;
+    }
 
     input, select {
-      background: #f6f8fc;
-      color: #1f2933;
-      border: 1px solid #d0d8e2;
-      border-radius: 6px;
-      padding: 8px 10px;
+      background: #fff5fa;
+      color: #3a2a3a;
+      border: 1px solid #f0c8d8;
+      border-radius: 10px;
+      padding: 9px 12px;
       font-size: 14px;
       font-family: inherit;
       width: 100%;
+      transition: border 0.15s, box-shadow 0.15s;
     }
     input:focus, select:focus {
-      outline: 2px solid #2b8c4e;
-      border-color: #2b8c4e;
+      outline: none;
+      border-color: #f28cb1;
+      box-shadow: 0 0 0 3px rgba(242, 140, 177, 0.20);
       background: #ffffff;
     }
 
     .btn {
-      background: #2b8c4e;
+      background: #f28cb1;
       color: #ffffff;
       border: none;
-      border-radius: 8px;
-      padding: 9px 14px;
+      border-radius: 12px;
+      padding: 10px 16px;
       font-weight: 700;
       font-size: 14px;
       cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      box-shadow: 0 3px 8px rgba(242, 140, 177, 0.30);
     }
-    .btn:hover { background: #237040; }
+    .btn:hover { background: #ec759c; transform: translateY(-1px); }
     .btn:active { transform: translateY(1px); }
     .btn.secondary {
-      background: #eef2f7;
-      color: #1f2933;
-      border: 1px solid #d0d8e2;
+      background: #fff0f5;
+      color: #7d5276;
+      border: 1px solid #f0c8d8;
+      box-shadow: none;
     }
-    .btn.secondary:hover { background: #e4e9f0; }
+    .btn.secondary:hover { background: #ffe4ec; }
     .btn.danger {
-      background: #c8334a;
+      background: #e88aa5;
       color: #ffffff;
+      box-shadow: 0 3px 8px rgba(232, 138, 165, 0.35);
     }
-    .btn.danger:hover { background: #a8283a; }
+    .btn.danger:hover { background: #d97291; }
     .btn.small {
-      padding: 6px 10px;
+      padding: 7px 12px;
       font-size: 12px;
+      border-radius: 10px;
     }
 
     .stat-grid {
@@ -136,27 +148,28 @@
       margin-bottom: 6px;
     }
     .stat {
-      background: #f6f8fc;
-      border: 1px solid #e3e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
+      background: #fff0f5;
+      border: 1px solid #f3d3df;
+      border-radius: 12px;
+      padding: 12px 14px;
     }
     .stat .label {
       font-size: 12px;
-      color: #5b6776;
+      color: #9a6a96;
       text-transform: uppercase;
       letter-spacing: 0.4px;
     }
     .stat .val {
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       margin-top: 4px;
+      color: #5a2a4a;
     }
-    .stat .val.neg { color: #c8334a; }
-    .stat .val.pos { color: #2b8c4e; }
+    .stat .val.neg { color: #d26b8f; }
+    .stat .val.pos { color: #5a8a6a; }
     .stat .desc {
       font-size: 11px;
-      color: #5b6776;
+      color: #9a6a96;
       margin-top: 2px;
     }
 
@@ -167,127 +180,135 @@
     }
     th, td {
       text-align: left;
-      padding: 8px 8px;
-      border-bottom: 1px solid #e6ebf2;
+      padding: 9px 8px;
+      border-bottom: 1px solid #f0d3dd;
     }
     th {
-      color: #5b6776;
+      color: #9a6a96;
       font-weight: 600;
       text-transform: uppercase;
       font-size: 11px;
       letter-spacing: 0.4px;
-      background: #f6f8fc;
+      background: #fde4ee;
     }
-    tbody tr:hover { background: #f6f8fc; }
+    tbody tr:hover { background: #fff5fa; }
+    tbody tr:last-child td { border-bottom: none; }
     td.num { text-align: right; font-variant-numeric: tabular-nums; }
     td span.tag {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 600;
     }
-    .tag.food { background: #fde9d9; color: #9a5a16; }
-    .tag.subs { background: #e6edf7; color: #2b4a6b; }
-    .tag.transport { background: #e7f1e6; color: #2f6b3a; }
-    .tag.living { background: #f1e9f5; color: #5a3a75; }
-    .tag.leisure { background: #fdf2e6; color: #9a5a16; }
-    .tag.etc { background: #eef2f7; color: #5b6776; }
+    .tag.food { background: #fce6ef; color: #b14a6a; }
+    .tag.subs { background: #e9def7; color: #5a3a8a; }
+    .tag.transport { background: #e3f4e8; color: #2f6b3a; }
+    .tag.living { background: #f1ddf0; color: #5a3a75; }
+    .tag.leisure { background: #fdf0e0; color: #b06526; }
+    .tag.etc { background: #f3e2f1; color: #7d5276; }
 
     .chip {
       display: inline-block;
-      padding: 2px 8px;
+      padding: 4px 12px;
       border-radius: 999px;
       font-size: 11px;
       font-weight: 600;
-      background: #eef2f7;
-      color: #3a4654;
+      background: #fff0f5;
+      color: #9a6a96;
+      border: 1px solid #f0c8d8;
     }
 
     .progress-box {
-      background: #f6f8fc;
-      border: 1px solid #e3e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
+      background: #fff0f5;
+      border: 1px solid #f3d3df;
+      border-radius: 12px;
+      padding: 12px 14px;
       margin-top: 8px;
     }
     .progress-box .p-head {
       display: flex;
       justify-content: space-between;
       font-size: 12px;
-      color: #5b6776;
-      margin-bottom: 6px;
+      color: #9a6a96;
+      margin-bottom: 8px;
     }
     .progress {
-      height: 8px;
+      height: 10px;
       border-radius: 999px;
-      background: #e3e8f0;
+      background: #f0d3dd;
       overflow: hidden;
     }
     .progress > div {
       height: 100%;
-      background: #2b8c4e;
+      background: #f28cb1;
       border-radius: 999px;
     }
-    .progress.warn > div { background: #d29922; }
-    .progress.over > div { background: #c8334a; }
+    .progress.warn > div { background: #f0b27a; }
+    .progress.over > div { background: #e88aa5; }
 
     .tips {
-      background: #f6f8fc;
-      border: 1px solid #e3e8f0;
-      border-radius: 8px;
-      padding: 12px 14px;
+      background: #fff0f5;
+      border: 1px solid #f3d3df;
+      border-radius: 12px;
+      padding: 14px 16px;
     }
     .tips h3 {
-      margin: 0 0 8px;
-      font-size: 13px;
-      color: #1f2933;
+      margin: 0 0 10px;
+      font-size: 14px;
+      color: #5a2a4a;
     }
     .tips ul {
       margin: 0 0 0 18px;
       padding: 0;
       font-size: 13px;
-      color: #3a4654;
+      color: #5a2a4a;
     }
-    .tips li { margin-bottom: 6px; }
+    .tips li {
+      margin-bottom: 7px;
+      padding-left: 4px;
+    }
 
     .type-result {
-      background: #f6f8fc;
-      border: 1px solid #e3e8f0;
-      border-radius: 8px;
-      padding: 14px;
+      background: #fff0f5;
+      border: 1px solid #f3d3df;
+      border-radius: 12px;
+      padding: 16px;
       margin-top: 6px;
     }
     .type-result .type-title {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
+      color: #5a2a4a;
       margin-bottom: 6px;
     }
     .type-result .type-desc {
       font-size: 13px;
-      color: #3a4654;
-      margin-bottom: 10px;
+      color: #5a2a4a;
+      margin-bottom: 12px;
+      line-height: 1.5;
     }
     .type-result .type-list {
       font-size: 13px;
-      color: #3a4654;
+      color: #5a2a4a;
       margin: 0 0 0 18px;
     }
-    .type-result .type-list li { margin-bottom: 4px; }
+    .type-result .type-list li { margin-bottom: 6px; }
 
     .chart-wrap {
       display: flex;
-      gap: 16px;
+      gap: 18px;
       align-items: center;
       flex-wrap: wrap;
-      margin-top: 6px;
+      margin-top: 8px;
     }
     .chart-box {
       background: #ffffff;
-      border: 1px solid #e3e8f0;
-      border-radius: 8px;
-      padding: 10px;
+      border: 1px solid #f0c8d8;
+      border-radius: 14px;
+      padding: 12px;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(242, 140, 177, 0.08);
     }
     .chart-box canvas {
       display: block;
@@ -296,29 +317,29 @@
     }
     .chart-legend {
       font-size: 12px;
-      color: #3a4654;
-      margin-top: 6px;
+      color: #7d5276;
+      margin-top: 8px;
     }
-    .chart-legend div { margin-bottom: 3px; }
+    .chart-legend div { margin-bottom: 4px; }
 
     .guide {
-      background: #eef6f0;
-      border: 1px solid #cfe3d6;
-      border-radius: 8px;
-      padding: 12px 14px;
+      background: #fde6ef;
+      border: 1px solid #f2c3d4;
+      border-radius: 14px;
+      padding: 14px 16px;
       font-size: 13px;
-      color: #1f3a2a;
+      color: #5a2a4a;
     }
-    .guide strong { color: #1f2933; }
-    .guide ol { margin: 6px 0 0 18px; padding: 0; }
-    .guide ol li { margin-bottom: 4px; }
+    .guide strong { color: #5a2a4a; }
+    .guide ol { margin: 8px 0 0 18px; padding: 0; }
+    .guide ol li { margin-bottom: 6px; }
 
     footer {
       margin-top: 18px;
-      color: #5b6776;
+      color: #9a6a96;
       font-size: 12px;
       text-align: center;
-      border-top: 1px solid #e3e8f0;
+      border-top: 1px solid #f3d3df;
       padding-top: 12px;
     }
 
@@ -343,34 +364,34 @@
     </header>
 
     <div class="guide">
-      <strong>이렇게 써보세요.</strong>
+      <strong>몽글몽글하게 써보세요 🌸</strong>
       <ol>
-        <li>월 수입을 먼저 입력하세요.</li>
-        <li>지출 항목을 하나씩 추가하세요. 식비, 교통비, 구독료처럼 자주 쓰는 항목은 카테고리로 묶을 수 있습니다.</li>
-        <li>아래 <strong>소비습관 분석하기</strong> 버튼을 누르면 항목별 비율과 소비 유형, 절약 팁이 나옵니다.</li>
-        <li>마지막으로 절약 목표를 설정하면 다음 달 계획이 더 쉬워집니다.</li>
+        <li>월 수입을 먼저 입력해요.</li>
+        <li>지출 항목을 하나씩 추가해요. 식비, 교통비, 구독료처럼 자주 쓰는 항목은 카테고리로 묶을 수 있어요.</li>
+        <li>아래 <strong>소비습관 분석하기</strong> 버튼을 누르면 항목별 비율과 소비 유형, 절약 팁이 나와요.</li>
+        <li>마지막으로 절약 목표를 설정하면 다음 달 계획이 더 쉬워져요.</li>
       </ol>
     </div>
 
     <div class="card">
       <h2>수입·지출 입력 <span class="sub">한 달 기준</span></h2>
-      <div class="row" style="margin-bottom:12px;">
+      <div class="row" style="margin-bottom:14px;">
         <div class="grow">
           <label for="income">월 수입 (원)</label>
           <input type="number" id="income" min="0" step="1000" placeholder="예: 1200000" />
         </div>
       </div>
 
-      <div class="row" style="margin-bottom:10px;">
+      <div class="row" style="margin-bottom:12px;">
         <div class="grow" style="flex:3;">
           <label for="itemName">지출 항목 이름</label>
           <input type="text" id="itemName" placeholder="예: 식비, 카페, 지하철, 넷플릭스" />
         </div>
-        <div style="width:140px;">
+        <div style="width:150px;">
           <label for="itemAmount">금액 (원)</label>
           <input type="number" id="itemAmount" min="0" step="100" placeholder="원" />
         </div>
-        <div style="width:140px;">
+        <div style="width:150px;">
           <label for="itemCategory">카테고리</label>
           <select id="itemCategory">
             <option value="etc">기타</option>
@@ -383,7 +404,7 @@
         </div>
       </div>
 
-      <div class="row" style="margin-bottom:10px;">
+      <div class="row" style="margin-bottom:12px;">
         <button class="btn" id="btnAddItem">지출 항목 추가</button>
         <button class="btn secondary small" id="btnAddSample">예시 데이터 넣기</button>
       </div>
@@ -440,15 +461,15 @@
           <canvas id="donutChart" width="220" height="220"></canvas>
           <div class="chart-legend" id="donutLegend"></div>
         </div>
-        <div class="chart-box" style="flex:1.4;">
+        <div class="chart-box" style="flex:1.5;">
           <canvas id="barChart" width="280" height="220"></canvas>
           <div class="chart-legend" style="text-align:left;">
-            <div style="font-weight:600; margin-bottom:4px;">항목별 금액</div>
+            <div style="font-weight:700; margin-bottom:4px; color:#5a2a4a;">항목별 금액</div>
             <div id="barLegend"></div>
           </div>
         </div>
       </div>
-      <div class="row" style="margin-top:10px;">
+      <div class="row" style="margin-top:12px;">
         <button class="btn secondary small" id="btnSortByAmount">금액 높은 순</button>
         <button class="btn secondary small" id="btnSortByCategory">카테고리별 보기</button>
         <button class="btn secondary small" id="btnClearExpense">지출 초기화</button>
@@ -457,7 +478,7 @@
 
     <div class="card">
       <h2>소비 유형 분석 <span class="sub">버튼을 눌러 확인하세요</span></h2>
-      <div class="row" style="margin-bottom:10px;">
+      <div class="row" style="margin-bottom:12px;">
         <button class="btn" id="btnAnalyze">소비습관 분석하기</button>
         <button class="btn secondary small" id="btnResetType">분석 결과 지우기</button>
       </div>
@@ -468,12 +489,12 @@
           <div class="type-list" id="typeList"></div>
         </div>
         <div class="tips">
-          <h3>절약 팁</h3>
+          <h3>절약 팁 🌷</h3>
           <ul id="tipsList"></ul>
         </div>
       </div>
-      <div id="analysisPlaceholder" class="muted" style="font-size:13px;">
-        분석을 누르면 항목별 소비 패턴과 유형을 알려줍니다.
+      <div id="analysisPlaceholder" class="muted" style="font-size:13px; color:#9a6a96;">
+        분석을 누르면 항목별 소비 패턴과 유형을 알려줘요.
       </div>
     </div>
 
@@ -484,12 +505,12 @@
           <label for="goalRatio">목표 지출 비중 (%)</label>
           <input type="number" id="goalRatio" min="0" max="100" step="1" placeholder="예: 70" />
         </div>
-        <div style="width:160px;">
+        <div style="width:170px;">
           <label for="goalSaving">한 달 절약 목표 (원)</label>
           <input type="number" id="goalSaving" min="0" step="1000" placeholder="원" />
         </div>
       </div>
-      <div class="row" style="margin-bottom:10px;">
+      <div class="row" style="margin-bottom:12px;">
         <button class="btn" id="btnSetGoal">목표 설정하기</button>
         <button class="btn secondary small" id="btnClearGoal">목표 지우기</button>
       </div>
@@ -503,14 +524,14 @@
             <div id="goalBar" style="width:0%"></div>
           </div>
         </div>
-        <div style="margin-top:10px; font-size:13px; color:#3a4654;" id="goalMessage"></div>
+        <div style="margin-top:12px; font-size:13px; color:#5a2a4a;" id="goalMessage"></div>
       </div>
-      <div id="goalPlaceholder" class="muted" style="font-size:13px;">
-        목표를 설정하면 지금 지출이 목표보다 많은지 적은지 볼 수 있습니다.
+      <div id="goalPlaceholder" class="muted" style="font-size:13px; color:#9a6a96;">
+        목표를 설정하면 지금 지출이 목표보다 많은지 적은지 볼 수 있어요.
       </div>
     </div>
 
-    <footer>한 달 소비습관 분석기 · 내 지출을 보고 더 나은 소비습관을 만들어보세요.</footer>
+    <footer>한 달 소비습관 분석기 · 내 지출을 보고 더 나은 소비습관을 만들어보세요 🌷</footer>
   </div>
 
   <script>
@@ -662,7 +683,7 @@
       const list = sortExpenses(state.expenses);
       if (!list.length) {
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td colspan="4" style="text-align:center; color:#5b6776; padding:14px;">지출 항목이 없습니다.</td>';
+        tr.innerHTML = '<td colspan="4" style="text-align:center; color:#9a6a96; padding:14px;">지출 항목이 없어요.</td>';
         tbody.appendChild(tr);
         return;
       }
@@ -740,9 +761,9 @@
       if (!keys.length || total === 0) {
         ctx.beginPath();
         ctx.arc(w / 2, h / 2, 70, 0, Math.PI * 2);
-        ctx.fillStyle = '#e3e8f0';
+        ctx.fillStyle = '#f0d3dd';
         ctx.fill();
-        ctx.fillStyle = '#5b6776';
+        ctx.fillStyle = '#9a6a96';
         ctx.font = '12px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -750,7 +771,7 @@
         return;
       }
 
-      const colors = ['#2b8c4e', '#d29922', '#3b6ea5', '#8a3aa3', '#c8334a', '#5b6776'];
+      const colors = ['#f28cb1', '#f0b27a', '#a98cd6', '#c78bc7', '#e88aa5', '#d26b8f'];
       let startAngle = -Math.PI / 2;
 
       keys.forEach((k, i) => {
@@ -800,7 +821,7 @@
       legend.innerHTML = '';
 
       if (!list.length) {
-        ctx.fillStyle = '#5b6776';
+        ctx.fillStyle = '#9a6a96';
         ctx.font = '12px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -817,16 +838,16 @@
       top.forEach((e, i) => {
         const x = 20 + i * (barW + 8);
         const bh = (e.amount / maxVal) * chartH;
-        ctx.fillStyle = '#2b8c4e';
+        ctx.fillStyle = '#f28cb1';
         ctx.fillRect(x, baseY - bh, barW, bh);
 
-        ctx.fillStyle = '#1f2933';
+        ctx.fillStyle = '#5a2a4a';
         ctx.font = '10px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'bottom';
         ctx.fillText((e.amount / 10000).toFixed(e.amount % 10000 === 0 ? 0 : 1) + '만', x + barW / 2, baseY - bh - 3);
 
-        ctx.fillStyle = '#5b6776';
+        ctx.fillStyle = '#9a6a96';
         ctx.font = '9px sans-serif';
         ctx.textBaseline = 'top';
         const label = e.name.length > 10 ? e.name.slice(0, 10) + '…' : e.name;
@@ -847,11 +868,11 @@
     // ---------- 분석 ----------
     document.getElementById('btnAnalyze').addEventListener('click', () => {
       if (!state.expenses.length) {
-        alert('분석할 지출 항목이 필요합니다. 먼저 지출을 입력해보세요.');
+        alert('분석할 지출 항목이 필요해요. 먼저 지출을 입력해보세요.');
         return;
       }
       if (!state.income) {
-        alert('월 수입을 입력하면 더 정확한 분석이 가능합니다.');
+        alert('월 수입을 입력하면 더 정확한 분석이 가능해요.');
       }
 
       const cat = byCategory();
@@ -873,30 +894,30 @@
       if (top.pct >= 40) {
         if (top.key === 'food') {
           type = '식비 중심형';
-          desc = '식비와 간식 지출이 가장 큰 비중을 차지합니다. 배달·편의점·외식 빈도를 점검해보세요.';
+          desc = '식비와 간식 지출이 가장 큰 비중을 차지해요. 배달·편의점·외식 빈도를 한 번 점검해보세요.';
         } else if (top.key === 'subs') {
           type = '구독·자동결제형';
-          desc = '구독과 자동결제 지출이 눈에 띕니다. 자주 안 쓰는 구독부터 정리해보세요.';
+          desc = '구독과 자동결제 지출이 눈에 띄어요. 자주 안 쓰는 구독부터 정리해보세요.';
         } else if (top.key === 'living') {
           type = '생활·주거 집중형';
-          desc = '생활비와 주거 관련 지출이 큽니다. 고정비를 줄이는 방향이 중요합니다.';
+          desc = '생활비와 주거 관련 지출이 커요. 고정비를 줄이는 방향이 중요해요.';
         } else if (top.key === 'leisure') {
           type = '여가·취미형';
-          desc = '영화·공연·친구 만남 같은 여가 지출이 많습니다. 즐거움은 유지하되 빈도를 조절해보세요.';
+          desc = '영화·공연·친구 만남 같은 여가 지출이 많아요. 즐거움은 유지하되 빈도를 조절해보세요.';
         } else {
           type = '기타 지출 집중형';
-          desc = '기타 항목의 지출이 가장 큽니다. 어떤 항목이 반복되는지 확인해보세요.';
+          desc = '기타 항목의 지출이 가장 커요. 어떤 항목이 반복되는지 확인해보세요.';
         }
       } else if (top.pct >= 25 && second && second.pct >= 15) {
         type = '복합 소비형';
-        desc = '두세 항목이 비슷하게 높습니다. 큰 항목 하나만 줄이기보다 작은 지출을 여러 개 점검해보세요.';
+        desc = '두세 항목이 비슷하게 높아요. 큰 항목 하나만 줄이기보다 작은 지출을 여러 개 점검해보세요.';
       } else {
         type = '분산 소비형';
-        desc = '한 항목에 몰려 있기보다 여러 항목에 나뉘어 있습니다. 소액 지출이 쌓이는지 확인해보세요.';
+        desc = '한 항목에 몰려 있기보다 여러 항목에 나뉘어 있어요. 소액 지출이 쌓이는지 확인해보세요.';
       }
 
       if (top.key) {
-        typeDesc.textContent = desc + ' 가장 큰 항목은 ' + CATEGORY_LABEL[top.key] + ' (' + top.pct.toFixed(1) + '%)입니다.';
+        typeDesc.textContent = desc + ' 가장 큰 항목은 ' + CATEGORY_LABEL[top.key] + ' (' + top.pct.toFixed(1) + '%)예요.';
       } else {
         typeDesc.textContent = desc;
       }
@@ -929,36 +950,36 @@
       const topTransport = entries.find(e => e.key === 'transport');
 
       if (topFood && topFood.pct >= 25) {
-        tips.push('식비가 높다면 주 1~2회 배달/외식 횟수를 줄여보세요. 집밥이나 간편식으로 대체하면 체감이 큽니다.');
-        tips.push('편의점 소액 결제가 쌓이는지 확인해보세요. 한 번에 여러 개를 사면 생각보다 금액이 커집니다.');
+        tips.push('식비가 높다면 주 1~2회 배달/외식 횟수를 줄여보세요. 집밥이나 간편식으로 바꾸면 체감이 꽤 커요.');
+        tips.push('편의점 소액 결제가 쌓이는지 확인해보세요. 한 번에 여러 개를 사면 생각보다 금액이 커져요.');
       }
       if (topSubs && topSubs.pct >= 10) {
         tips.push('구독 서비스 중 최근 1달간 거의 안 쓴 항목이 있다면 해지해보세요.');
-        tips.push('자동결제 항목은 월초에 한 번씩 점검하는 습관을 들이면 새는 돈을 줄일 수 있습니다.');
+        tips.push('자동결제 항목은 월초에 한 번씩 점검하는 습관을 들이면 새는 돈을 줄일 수 있어요.');
       }
       if (topTransport && topTransport.pct >= 15) {
-        tips.push('교통비가 높다면 이동 경로를 한 번 정리해보세요. 환승이나 도보 가능 구간이 있을 수 있습니다.');
+        tips.push('교통비가 높다면 이동 경로를 한 번 정리해보세요. 환승이나 도보 가능한 구간이 있을 수 있어요.');
       }
       if (total > 0 && income > 0) {
         const ratio = (total / income) * 100;
         if (ratio > 80) {
-          tips.push('현재 지출 비중이 높습니다. 다음 달에는 지금보다 ' + (ratio - 70).toFixed(0) + '%p 정도 낮추는 목표를 세워보세요.');
+          tips.push('현재 지출 비중이 높은 편이에요. 다음 달에는 지금보다 ' + (ratio - 70).toFixed(0) + '%p 정도 낮추는 목표를 세워보세요.');
         } else if (ratio > 55) {
-          tips.push('지출 비중이 준수하지만, 작은 반복 지출이 있는지 한 번만 점검해도 더 줄일 수 있습니다.');
+          tips.push('지출 비중이 나쁘지 않아요. 작은 반복 지출이 있는지 한 번만 점검해도 더 줄일 수 있어요.');
         } else {
-          tips.push('지출 관리 습관이 나쁘지 않습니다. 지금의 흐름을 유지하면서 불필요한 소액 결제만 조심해보세요.');
+          tips.push('지출 관리 습관이 나쁘지 않아요. 지금의 흐름을 유지하면서 불필요한 소액 결제만 조심해보세요.');
         }
       }
       if (state.expenses.length > 0) {
         const avg = total / state.expenses.length;
         if (avg > 100000) {
-          tips.push('항목당 평균 지출이 큰 편입니다. 금액이 큰 고정 지출부터 먼저 조정해보세요.');
+          tips.push('항목당 평균 지출이 큰 편이에요. 금액이 큰 고정 지출부터 먼저 조정해보세요.');
         } else {
           tips.push('소액 항목이 많은 편이라면, 자주 쓰는 항목을 하나로 묶어 관리해보세요.');
         }
       }
       if (tips.length === 0) {
-        tips.push('아직 뚜렷한 낭비 항목은 보이지 않습니다. 지금의 소비 흐름을 한 달 더 기록해보세요.');
+        tips.push('아직 뚜렷한 낭비 항목은 보이지 않아요. 지금의 소비 흐름을 한 달 더 기록해보세요.');
       }
       return tips;
     }
@@ -1010,14 +1031,14 @@
 
       const msg = document.getElementById('goalMessage');
       if (gap > 0) {
-        msg.innerHTML = '현재 지출 비중이 목표보다 <b>' + gap.toFixed(1) + '%p</b> 높습니다. 이번 달 지출을 약 ' + fmtMoney(Math.round(saving)) + ' 정도 줄여보세요.';
-        msg.style.color = '#c8334a';
+        msg.innerHTML = '현재 지출 비중이 목표보다 <b>' + gap.toFixed(1) + '%p</b> 높아요. 이번 달 지출을 약 ' + fmtMoney(Math.round(saving)) + ' 정도 줄여보세요.';
+        msg.style.color = '#d26b8f';
       } else if (gap > -5) {
-        msg.innerHTML = '현재 지출 비중이 목표와 비슷합니다. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 유지해보세요.';
-        msg.style.color = '#2b8c4e';
+        msg.innerHTML = '현재 지출 비중이 목표와 비슷해요. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 유지해보세요.';
+        msg.style.color = '#5a8a6a';
       } else {
-        msg.innerHTML = '현재 지출 비중이 목표보다 낮습니다. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 잘 지키고 있습니다.';
-        msg.style.color = '#2b8c4e';
+        msg.innerHTML = '현재 지출 비중이 목표보다 낮아요. 목표 ' + fmtMoney(Math.round(saving)) + ' 절약을 잘 지키고 있어요.';
+        msg.style.color = '#5a8a6a';
       }
     });
 
