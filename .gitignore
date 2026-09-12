@@ -1,0 +1,5 @@
+.env
+.env.*
+*password*
+node_modules/
+.qa/
